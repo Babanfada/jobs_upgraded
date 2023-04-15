@@ -1,0 +1,29 @@
+@import "./variables";
+.wrapper {
+  width: 100%;
+  max-width: 100vw;
+  background: $white;
+  border-radius: $borderRadius;
+  box-shadow: $shadow-2;
+  padding: 2rem 2.5rem;
+  h4 {
+    padding-left: 2vw;
+  }
+
+  h4 + div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+    @media (max-width: 981px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  .btn {
+    // border: 3px solid yellow;
+    display: flex;
+    align-self: flex-end;
+  }
+}

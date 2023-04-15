@@ -1,0 +1,38 @@
+@import "./variables";
+.wrapper {
+  border: 1px solid rgb(8, 4, 4);
+  height: $nav-height;
+//   height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3vw;
+  box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+    // width: calc(100% - 250px);
+  width: 100%;
+  .faAlign {
+    background: transparent;
+    border-color: transparent;
+    font-size: 1.75rem;
+    color: $primary-500;
+    cursor: pointer;
+    border: 1px solid red;
+  }
+  h3 {
+    align-self: flex-end;
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+  img {
+    display: none;
+    @media (max-width: 900px) {
+      display: flex;
+      width: 7rem;
+    }
+    @media (max-width: 300px) {
+      display: none;
+    }
+  }
+}

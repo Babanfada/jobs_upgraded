@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // alignItems: "center",
+  width: 100%;
+  padding: 3vw;
+  border: 1px solid red;
+  h4 {
+    align-self: center;
+  }
+  button{
+    width: fit-content;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,46 @@
+@import "./variables";
+.wrapper {
+  //   background-color: aqua;
+  width: 20vw;
+  //   padding: 3vw;
+  //   border-radius: 7px;
+  //   height: 30vh;
+
+  padding: 2rem;
+  background: $white;
+  border-radius: $borderRadius;
+  @media (max-width: 830px) {
+    width: 100%;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span:first-child {
+      display: block;
+      font-weight: 700;
+      font-size: 50px;
+      // color: ${(props) => props.color};
+    }
+    span + span {
+      width: 70px;
+      height: 60px;
+      //   background: yellow;
+      border-radius: $borderRadius;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      //   svg {
+      //     font-size: 2rem;
+      //     //   color: ${(props) => props.color};
+      //   }
+    }
+  }
+  h5 {
+    margin: 0;
+    text-transform: capitalize;
+    letter-spacing: $letterSpacing;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+}

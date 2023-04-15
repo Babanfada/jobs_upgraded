@@ -1,0 +1,111 @@
+@import "./variables";
+.wrapper {
+  border: 4px solid blue;
+  background: $white;
+//   min-height: 100%;
+  height: 100vh;
+  width: 250px;
+  @media (max-width: 981px) {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid red;
+    z-index: 2;
+    background-color: $grey-50;
+    padding: 3vw;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+  }
+  nav {
+    width: $fluid-width;
+    max-width: $max-width;
+    margin: 0 auto;
+    height: $nav-height;
+    display: flex;
+    align-items: center;
+    // border: 1px solid red;
+    padding-left: 3vw;
+    @media (max-width: 900px) {
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    }
+  }
+  aside {
+    padding-top: 5vh;
+    .navlink {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2vw;
+      //   border: 1px solid red;
+      padding: 1rem 0;
+      padding-left: 3vw;
+      cursor: pointer;
+      transition: all;
+
+      &:hover {
+        background-color: $primary-50;
+        transition: $transition;
+        .span1 {
+          color: $primary-400;
+          transform: translateX(7px);
+          transition: $transition;
+        }
+        .span2 {
+          transform: translateX(7px);
+          transition: $transition;
+        }
+      }
+
+      .span1 {
+        background: transparent;
+        border-color: transparent;
+        font-size: 1.5rem;
+        color: $grey-500;
+      }
+
+      .span2 {
+        font-size: 1.2 rem;
+        color: $grey-500;
+      }
+    }
+  }
+}
+
+// when link is active
+
+.active {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2vw;
+  //   border: 1px solid red;
+  padding: 1rem 0;
+  padding-left: 3vw;
+  cursor: pointer;
+  transition: all;
+  .span1 {
+    color: $primary-500;
+    font-size: 1.5rem;
+  }
+  .span2 {
+    color: $grey-900;
+  }
+  &:hover {
+    background-color: $primary-50;
+    transition: $transition;
+    .span1 {
+      color: $primary-400;
+      transform: translateX(7px);
+      transition: $transition;
+    }
+    .span2 {
+      transform: translateX(7px);
+      transition: $transition;
+    }
+  }
+}
