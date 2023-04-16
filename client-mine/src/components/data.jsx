@@ -74,93 +74,22 @@ export const links = [
   { id: 3, text: "add job", path: "add-job", icon: <FaWpforms /> },
   { id: 4, text: "profile", path: "profile", icon: <ImProfile /> },
 ];
-export const status = [
-  {
-    value: "pending",
-    label: "฿",
-  },
-  {
-    value: "interview",
-    label: "$",
-  },
-  {
-    value: "declined",
-    label: "€",
-  },
-];
-export const jobType = [
-  {
-    value: "full-time",
-    label: "$",
-  },
-  {
-    value: "part-time",
-    label: "€",
-  },
-  {
-    value: "remote",
-    label: "฿",
-  },
-  {
-    value: "internship",
-    label: "฿",
-  },
-];
-export const status2 = [
-  {
-    value: "all",
-    label: "฿",
-  },
-  {
-    value: "pending",
-    label: "฿",
-  },
-  {
-    value: "interview",
-    label: "$",
-  },
-  {
-    value: "declined",
-    label: "€",
-  },
-];
-export const jobType2 = [
-  {
-    value: "all",
-    label: "$",
-  },
-  {
-    value: "full-time",
-    label: "$",
-  },
-  {
-    value: "part-time",
-    label: "€",
-  },
-  {
-    value: "remote",
-    label: "฿",
-  },
-  {
-    value: "internship",
-    label: "฿",
-  },
-];
-export const sort = [
-  {
-    value: "latest",
-    label: "$",
-  },
-  {
-    value: "oldest",
-    label: "$",
-  },
-  {
-    value: "a-z",
-    label: "€",
-  },
-  {
-    value: "z-a",
-    label: "฿",
-  },
-];
+
+export const statusBackground = (status) => {
+  if (status === "declined") {
+    return "#ffeeee";
+  }
+  if (status === "interview") {
+    return "#e0e8f9";
+  }
+  return "#fcefc7";
+};
+export const statusColor = (status) => {
+  if (status === "declined") {
+    return "#d66a6a";
+  }
+  if (status === "interview") {
+    return "#647acb";
+  }
+  return "#e9b949";
+};

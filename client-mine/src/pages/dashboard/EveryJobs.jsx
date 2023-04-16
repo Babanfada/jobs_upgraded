@@ -15,13 +15,13 @@ import {
 const EveryJobs = () => {
   const { isLoadings, jobTypeOptions, statusOptions, isEditing, editJobId } =
     useSelector((store) => store.jobs);
-  const { sortOptions, search, searchStatus, searchType, sort, jobs } =
+  const { sortOptions, search, searchStatus, searchType, sort, jobs, page } =
     useSelector((store) => store.allJobs);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getAllJobs());
-  }, [search, searchStatus, searchType, sort]);
+  }, [search, searchStatus, searchType, sort, page,jobs]);
 
   const searchItems = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const EveryJobs = () => {
     dispatch(handleChange({ name, value }));
     dispatch(getAllJobs());
   };
-  
+
   const EveryJobField = [
     {
       name: "search",

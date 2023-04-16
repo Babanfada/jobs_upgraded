@@ -8,8 +8,11 @@ import {
   addJob,
   handleChange,
   clearValues,
+  editJob,
 } from "../../features/jobs/jobsSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const Addjobs = () => {
   const dispatch = useDispatch();
   const getInputs = (e) => {
@@ -17,6 +20,7 @@ const Addjobs = () => {
     const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
+  const navigate = useNavigate();
   const {
     isLoading,
     position,
@@ -36,6 +40,23 @@ const Addjobs = () => {
       toast.error("Please fill out all fields");
       return;
     }
+    if (isEditing) {
+      dispatch(
+        editJob([
+          editJobId,
+          {
+            position,
+            company,
+            jobLocation,
+            jobType,
+            status,
+          },
+        ])
+      );
+      setTimeout(() => navigate("/all-jobs"), 3000);
+
+      return;
+    }
     dispatch(
       addJob({
         position,
@@ -45,7 +66,6 @@ const Addjobs = () => {
         status,
       })
     );
-    console.log("jobs submiited");
   };
   const resetValues = () => {
     dispatch(clearValues());

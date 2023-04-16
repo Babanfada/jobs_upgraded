@@ -3,8 +3,11 @@ import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import styles from "../styles/jobcard.module.scss";
 import { Link } from "react-router-dom";
 import { CustomButton } from "./Button";
-import { prop6, prop7 } from "./data";
+import { prop6, prop7, statusBackground, statusColor } from "./data";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { setEditJob } from "../features/jobs/jobsSlice";
+import { deleteJob } from "../features/jobs/jobsSlice";
 const JobCard = ({
   position,
   company,
@@ -12,7 +15,12 @@ const JobCard = ({
   createdAt,
   jobType,
   status,
+  _id,
 }) => {
+  // const { isLoading, isEditing, editJobId } = useSelector(
+  //   (store) => store.jobs
+  // );
+  const dispatch = useDispatch();
   const date = moment(createdAt).startOf("day").fromNow();
   const jobInfo = [
     {
@@ -28,24 +36,7 @@ const JobCard = ({
       text: jobType,
     },
   ];
-  const statusBackground = (status) => {
-    if (status === "declined") {
-      return "#ffeeee";
-    }
-    if (status === "interview") {
-      return "#e0e8f9";
-    }
-    return "#fcefc7";
-  };
-  const statusColor = (status) => {
-    if (status === "declined") {
-      return "#d66a6a";
-    }
-    if (status === "interview") {
-      return "#647acb";
-    }
-    return "#e9b949";
-  };
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -76,17 +67,32 @@ const JobCard = ({
         </div>
       </div>
       <footer>
-        <CustomButton
-          type="button"
-          sx={{ m: 1.5, width: "fit-content" }}
-          prop={prop6}
-        >
-          Edit
-        </CustomButton>
+        <Link to="/add-job">
+          <CustomButton
+            type="button"
+            sx={{ m: 1.5, width: "fit-content" }}
+            prop={prop6}
+            onClick={() =>
+              dispatch(
+                setEditJob({
+                  _id,
+                  position,
+                  company,
+                  jobLocation,
+                  jobType,
+                  status,
+                })
+              )
+            }
+          >
+            Edit
+          </CustomButton>
+        </Link>
         <CustomButton
           type="button"
           sx={{ m: 1.5, width: "fit-content" }}
           prop={prop7}
+          onClick={() => dispatch(deleteJob(_id))}
         >
           Delete
         </CustomButton>
