@@ -1,38 +1,129 @@
 import React from "react";
-import { jobType, prop3, prop4, status } from "../../components/data";
+import { prop3, prop4 } from "../../components/data";
 import { CustomButton } from "../../components/Button";
 import styles from "../../styles/addjobs.module.scss";
 import { NameInput2, SelectTextFields } from "../../components/TextField";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addJob,
+  handleChange,
+  clearValues,
+} from "../../features/jobs/jobsSlice";
+import { toast } from "react-toastify";
 const Addjobs = () => {
+  const dispatch = useDispatch();
+  const getInputs = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch(handleChange({ name, value }));
+  };
+  const {
+    isLoading,
+    position,
+    company,
+    jobLocation,
+    jobTypeOptions,
+    jobType,
+    statusOptions,
+    status,
+    isEditing,
+    editJobId,
+  } = useSelector((store) => store.jobs);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!position || !company || !jobLocation) {
+      toast.error("Please fill out all fields");
+      return;
+    }
+    dispatch(
+      addJob({
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      })
+    );
+    console.log("jobs submiited");
+  };
+  const resetValues = () => {
+    dispatch(clearValues());
+  };
   const AddJobField = [
     {
       name: "position",
-      textField: <NameInput2 data={"position"} type={"text"} />,
+      textField: (
+        <NameInput2
+          name={"position"}
+          type={"text"}
+          value={position}
+          handleChange={getInputs}
+        />
+      ),
     },
     {
       name: "company",
-      textField: <NameInput2 data={"company"} type={"text"} />,
+      textField: (
+        <NameInput2
+          name={"company"}
+          type={"text"}
+          value={company}
+          handleChange={getInputs}
+        />
+      ),
     },
     {
       name: "job location",
-      textField: <NameInput2 data={"job location"} type={"text"} />,
+      textField: (
+        <NameInput2
+          name={"jobLocation"}
+          type={"text"}
+          value={jobLocation}
+          handleChange={getInputs}
+        />
+      ),
     },
     {
       name: "status",
-      textField: <SelectTextFields data={status} name={"status"} />,
+      textField: (
+        <SelectTextFields
+          data={statusOptions}
+          name={"status"}
+          value={status}
+          handleChange={getInputs}
+        />
+      ),
     },
     {
       name: "job type",
-      textField: <SelectTextFields data={jobType} name={"jobType"} />,
+      textField: (
+        <SelectTextFields
+          data={jobTypeOptions}
+          name={"jobType"}
+          value={jobType}
+          handleChange={getInputs}
+        />
+      ),
     },
     {
       name: "button",
       textField: (
         <div className={styles.btn}>
-          <CustomButton sx={{ m: 1.5, width: "100%" }} prop={prop3}>
+          <CustomButton
+            type="button"
+            sx={{ m: 1.5, width: "100%" }}
+            prop={prop3}
+            onClick={resetValues}
+          >
             Clear
           </CustomButton>
-          <CustomButton sx={{ m: 1.5, width: "100%" }} prop={prop4}>
+          <CustomButton
+            type="submit"
+            sx={{ m: 1.5, width: "100%" }}
+            prop={prop4}
+            disabled={isLoading}
+          >
             Submit
           </CustomButton>
         </div>
@@ -41,8 +132,8 @@ const Addjobs = () => {
   ];
 
   return (
-    <form className={styles.wrapper}>
-      <h4>Add Job</h4>
+    <form onSubmit={handleSubmit} className={styles.wrapper}>
+      <h4>{isEditing ? "Edit Job" : "Add Job"}</h4>
       <div>
         {AddJobField.map((field) => {
           const { name, textField } = field;

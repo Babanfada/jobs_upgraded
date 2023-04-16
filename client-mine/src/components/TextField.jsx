@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { handleChange } from "../features/profile/profileSlice";
+// import { handleChange as handleChange2 } from "../features/jobs/jobsSlice";
 import { useDispatch } from "react-redux";
 
 export default function PasswordInput({ name, value }) {
@@ -82,42 +83,38 @@ export const NameInput = ({ name, value }) => {
     />
   );
 };
-export const NameInput2 = ({ data, type }) => {
-  // const dispatch = useDispatch();
-  // const getInputs = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   dispatch(handleChange({ name, value }));
-  // };
-
+export const NameInput2 = ({ name, type, value, handleChange }) => {
   return (
     <TextField
-      label={data.charAt(0).toUpperCase() + data.slice(1)}
+      label={name.charAt(0).toUpperCase() + name.slice(1)}
       id="outlined-start-adornment"
       sx={{ m: 1.5, width: "100%", background: "#eff6ff" }}
       size={"small"}
       fullWidth
-      name={data}
-      // onChange={(e) => getInputs(e)}
+      name={name}
       type={type}
+      value={value}
+      onChange={(e) => handleChange(e)}
     />
   );
 };
 
-export function SelectTextFields({ data, name }) {
+export function SelectTextFields({ data, name, value, handleChange }) {
   return (
     <TextField
       id="outlined-select-currency"
+      name={name}
       select
       label={name.charAt(0).toUpperCase() + name.slice(1)}
-      defaultValue={data[0].value}
+      // defaultValue={data[0]}
       sx={{ m: 1.5, width: "100%", background: "#eff6ff" }}
       size={"small"}
-      // helperText="Please select your currency"
+      value={value}
+      onChange={(e) => handleChange(e)}
     >
       {data.map((option, index) => (
-        <MenuItem key={index} value={option.value}>
-          {option.value}
+        <MenuItem key={index} value={option}>
+          {option}
         </MenuItem>
       ))}
     </TextField>

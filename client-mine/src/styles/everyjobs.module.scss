@@ -1,0 +1,19 @@
+.wrapper {
+  section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1vw;
+    @media (max-width: 1132px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  h5{
+    font-weight: 700;
+    margin-top: 2vh;
+    // border: 1px solid red;
+  }
+  border: 10px solid yellow;
+  @media (max-width: 300px) {
+      width: fit-content;
+    }
+}

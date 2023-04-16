@@ -36,7 +36,7 @@ const CustomButton = styled(Button)(({ prop }) => ({
   },
   "&:active": {
     boxShadow: "none",
-    backgroundColor: "#0062cc",
+    backgroundColor: prop.background,
     borderColor: "#005cbf",
   },
   "&:focus": {

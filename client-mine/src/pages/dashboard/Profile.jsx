@@ -7,19 +7,19 @@ const Profile = () => {
   const profile = [
     {
       name: "name",
-      textField: <NameInput2 data={"name"} type={"text"} />,
+      textField: <NameInput2 name={"name"} type={"text"} />,
     },
     {
       name: "Last Name",
-      textField: <NameInput2 data={"last Name"} type={"text"} />,
+      textField: <NameInput2 name={"last Name"} type={"text"} />,
     },
     {
       name: "email",
-      textField: <NameInput2 data={"email"} type={"email"} />,
+      textField: <NameInput2 name={"email"} type={"email"} />,
     },
     {
       name: "location",
-      textField: <NameInput2 data={"location"} type={"text"} />,
+      textField: <NameInput2 name={"location"} type={"text"} />,
     },
     {
       name: "button",

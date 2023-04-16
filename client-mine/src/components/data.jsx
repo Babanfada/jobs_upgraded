@@ -35,15 +35,17 @@ export const prop5 = {
   colorHover: "#fff",
 };
 export const prop6 = {
-  color: "#842029",
-  background: " #f8d7da",
-  backgroundHover: "#842029",
+  marginRight: " 0.5rem",
+  color: "#0f5132",
+  background: " #d1e7dd",
+  backgroundHover: "#0f5132",
   size: "100%",
   colorHover: "#fff",
 };
 export const prop7 = {
+  marginRight: " 0.5rem",
   color: "#842029",
-  background: " #f8d7da",
+  background: "  #f8d7da",
   backgroundHover: "#842029",
   size: "100%",
   colorHover: "#fff",
