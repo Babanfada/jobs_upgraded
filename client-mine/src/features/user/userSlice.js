@@ -3,6 +3,7 @@ import {
   registerUserThunk,
   loginUserThunk,
   clearStoreThunk,
+  updateUserThunk,
 } from "../user/userThunk";
 import {
   addUserToLocalStorage,
@@ -11,11 +12,19 @@ import {
 } from "../../utils/localStorage";
 import { toast } from "react-toastify";
 
+const updatedUser = {
+  name: getUserFromLocalStorage().name || "",
+  email: getUserFromLocalStorage().email || "",
+  lastName: getUserFromLocalStorage().lastName || "",
+  location: getUserFromLocalStorage().location || "",
+};
+
 const initialState = {
   isSideBarOpen: false,
   isResizeSideBarOpen: false,
   isLoading: false,
   user: getUserFromLocalStorage(),
+  ...updatedUser,
 };
 
 export const registerUser = createAsyncThunk(
@@ -28,6 +37,12 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
     return loginUserThunk("/auth/login", user, thunkAPI);
+  }
+);
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (user, thunkAPI) => {
+    return updateUserThunk("/auth/updateUser", user, thunkAPI);
   }
 );
 
@@ -53,8 +68,10 @@ const userSlice = createSlice({
       if (payload) {
         toast.success(payload);
       }
-
-      // console.log(user);
+    },
+    updateUserProfile: (state, { payload: { name, value } }) => {
+      state[name] = value;
+      console.log(state.name, state.email, state.location, state.lastName);
     },
   },
   extraReducers: (builder) => {
@@ -84,10 +101,25 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         // state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        const { user } = action.payload;
+        state.isLoading = false;
+        addUserToLocalStorage(user);
+        state.user = user;
+        toast.success("Profile Succefully Updated!!!!");
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        // state.error = action.payload;
       });
   },
 });
 
 console.log(userSlice);
-export const { toggleSideBar, resizeSideBar, logOutUser } = userSlice.actions;
+export const { toggleSideBar, resizeSideBar, logOutUser, updateUserProfile } =
+  userSlice.actions;
 export default userSlice.reducer;

@@ -66,6 +66,7 @@ const Addjobs = () => {
         status,
       })
     );
+    setTimeout(() => navigate("/all-jobs"), 3000);
   };
   const resetValues = () => {
     dispatch(clearValues());

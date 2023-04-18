@@ -17,11 +17,8 @@ const JobCard = ({
   status,
   _id,
 }) => {
-  // const { isLoading, isEditing, editJobId } = useSelector(
-  //   (store) => store.jobs
-  // );
   const dispatch = useDispatch();
-  const date = moment(createdAt).startOf("day").fromNow();
+  const date = moment(createdAt).startOf("").fromNow();
   const jobInfo = [
     {
       icon: <FaLocationArrow />,
@@ -92,7 +89,10 @@ const JobCard = ({
           type="button"
           sx={{ m: 1.5, width: "fit-content" }}
           prop={prop7}
-          onClick={() => dispatch(deleteJob(_id))}
+          onClick={() => {
+            if (window.confirm("Are you sure you wannna do this????"))
+              dispatch(deleteJob(_id));
+          }}
         >
           Delete
         </CustomButton>

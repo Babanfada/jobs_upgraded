@@ -6,7 +6,6 @@ export const addJobThunk = async (info, thunkAPI) => {
     const { data } = await customFetch.post("/jobs", info);
     thunkAPI.dispatch(clearValues());
     console.log(data);
-    toast.success("Job Succefully Added!!!");
     return data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);
@@ -17,7 +16,6 @@ export const editJobThunk = async (info, thunkAPI) => {
     const { data } = await customFetch.patch(`/jobs/${info[0]}`, info[1]);
     thunkAPI.dispatch(clearValues());
     console.log(data);
-    
     return data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);

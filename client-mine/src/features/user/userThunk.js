@@ -19,6 +19,17 @@ const loginUserThunk = async (url, user, thunkAPI) => {
     // console.log(error);
   }
 };
+const updateUserThunk = async (url, user, thunkAPI) => {
+  try {
+    const { data } = await customFetch.patch(url, user);
+    // console.log(thunkAPI);
+    return data;
+  } catch (error) {
+    //  console.log(thunkAPI.rejectWithValue(error.response.data.msg));
+    return thunkAPI.rejectWithValue(error.response.data.msg);
+    // console.log(error);
+  }
+};
 
 const clearStoreThunk = async (message, thunkAPI) => {
   try {
@@ -30,4 +41,4 @@ const clearStoreThunk = async (message, thunkAPI) => {
   }
 };
 
-export { registerUserThunk, loginUserThunk, clearStoreThunk };
+export { registerUserThunk, loginUserThunk, clearStoreThunk, updateUserThunk };

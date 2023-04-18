@@ -60,7 +60,8 @@ const JobsSlice = createSlice({
       })
       .addCase(addJob.fulfilled, (state) => {
         state.isLoading = false;
-        toast.success("Job Details Successfully Added!!!!!");
+        // toast.success("Job Details Successfully Added!!!!!");
+        toast.success("Job Details Succefully Added!!!");
       })
       .addCase(addJob.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -72,7 +73,6 @@ const JobsSlice = createSlice({
       .addCase(editJob.fulfilled, (state) => {
         state.isLoading = false;
         toast.success("Job Details Succefully Edited!!!");
-        
       })
       .addCase(editJob.rejected, (state, { payload }) => {
         state.isLoading = false;
