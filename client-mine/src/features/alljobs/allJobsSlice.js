@@ -12,6 +12,7 @@ const initialState = {
   isLoading: false,
   jobs: [],
   totalJobs: 0,
+  numOfPages: 1,
   page: 1,
   stats: {},
   monthlyApplications: [],
@@ -46,6 +47,10 @@ const allJobsSlice = createSlice({
         ...initialFiltersState,
       };
     },
+    changePage: (state, { payload }) => {
+      state.page = payload;
+      console.log("change page")
+    },
   },
   extraReducers: (builders) => {
     builders
@@ -70,7 +75,8 @@ const allJobsSlice = createSlice({
         state.isLoading = false;
         state.jobs = payload.jobs;
         state.totalJobs = payload.totalJobs;
-        console.log(state.totalJobs);
+        state.numOfPages = payload.numOfPages;
+        console.log(state.numOfPages);
       })
       .addCase(getAllJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -80,5 +86,5 @@ const allJobsSlice = createSlice({
 });
 
 console.log(allJobsSlice);
-export const { handleChange, clearValues } = allJobsSlice.actions;
+export const { handleChange, clearValues, changePage } = allJobsSlice.actions;
 export default allJobsSlice.reducer;

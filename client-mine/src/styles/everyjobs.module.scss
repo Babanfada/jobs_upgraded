@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1vw;
+    margin-bottom: 3vh;
     @media (max-width: 1132px) {
       grid-template-columns: 1fr;
     }
@@ -12,7 +13,7 @@
     margin-top: 2vh;
     // border: 1px solid red;
   }
-  border: 10px solid yellow;
+  // border: 10px solid yellow;
   @media (max-width: 300px) {
       width: fit-content;
     }

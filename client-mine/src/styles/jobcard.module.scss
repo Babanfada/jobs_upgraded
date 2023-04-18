@@ -1,6 +1,6 @@
 @import "./variables";
 .wrapper {
-  border: 1px solid red;
+  // border: 1px solid red;
   margin-top: 1vw;
   background: $white;
   border-radius: $borderRadius;
@@ -44,7 +44,7 @@
     }
   }
   header + div {
-    border: 1px solid yellow;
+    // border: 1px solid yellow;
     padding: 1rem 1.5rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

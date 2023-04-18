@@ -12,16 +12,26 @@ import {
   getAllJobs,
   clearValues,
 } from "../../features/alljobs/allJobsSlice";
+import PaginationControlled from "../../components/Pagination";
 const EveryJobs = () => {
   const { isLoadings, jobTypeOptions, statusOptions, isEditing, editJobId } =
     useSelector((store) => store.jobs);
-  const { sortOptions, search, searchStatus, searchType, sort, jobs, page } =
-    useSelector((store) => store.allJobs);
+  const {
+    sortOptions,
+    search,
+    searchStatus,
+    searchType,
+    sort,
+    jobs,
+    totalJobs,
+    numOfPages,
+    page,
+  } = useSelector((store) => store.allJobs);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getAllJobs());
-  }, [search, searchStatus, searchType, sort, page,jobs]);
+  }, [search, searchStatus, searchType, sort, page, jobs]); // jobs is a dependency
 
   const searchItems = (e) => {
     e.preventDefault();
@@ -104,12 +114,13 @@ const EveryJobs = () => {
           })}
         </div>
       </form>
-      <h5>{`${jobs.length} job${jobs.length > 1 ? "s" : ""} Found`}</h5>
+      <h5>{`${totalJobs} job${totalJobs > 1 ? "s" : ""} Found`}</h5>
       <section>
         {jobs.map((job, index) => {
           return <JobCard key={index} {...job} />;
         })}
       </section>
+      {numOfPages > 1 && <PaginationControlled />}
     </div>
   );
 };

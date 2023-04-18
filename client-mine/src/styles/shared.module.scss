@@ -8,7 +8,7 @@
     position: absolute;
     right: 0;
     height: $nav-height;
-    border: 2px solid green;
+    // border: 2px solid green;
     width: calc(100% - 250px);
     width: 100%;
     @media (max-width: 981px) {
@@ -30,7 +30,7 @@
     right: 0;
     top: $nav-height;
     height: calc(100% - $nav-height);
-    border: 10px solid green;
+    // border: 10px solid green;
     min-width: calc(100% - 250px);
     overflow-y: scroll;
     padding: 4vw;
