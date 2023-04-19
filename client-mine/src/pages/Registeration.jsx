@@ -10,7 +10,7 @@ import { registerUser, loginUser } from "../features/user/userSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PasswordInput, { NameInput } from "../components/TextField";
-const Register = () => {
+const Registeration = () => {
   const { isMember, name, email, password } = useSelector(
     (store) => store.profile
   );
@@ -108,4 +108,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Registeration;

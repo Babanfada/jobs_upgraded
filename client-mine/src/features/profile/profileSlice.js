@@ -16,11 +16,11 @@ const profileSlice = createSlice({
     },
     handleChange: (state, { payload: { name, value } }) => {
       state[name] = value;
-      console.log(state.name, state.email, state.password, state.isMember);
+      // console.log(state.name, state.email, state.password, state.isMember);
     },
   },
 });
 
-console.log(profileSlice);
+// console.log(profileSlice);
 export const { handleToggle, handleChange } = profileSlice.actions;
 export default profileSlice.reducer;

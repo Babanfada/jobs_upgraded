@@ -34,12 +34,12 @@ const allJobsSlice = createSlice({
   reducers: {
     handleChange: (state, { payload: { name, value } }) => {
       state[name] = value;
-      console.log(
-        state.search,
-        state.searchStatus,
-        state.sort,
-        state.searchType
-      );
+      // console.log(
+      //   state.search,
+      //   state.searchStatus,
+      //   state.sort,
+      //   state.searchType
+      // );
     },
     clearValues: (state) => {
       return {
@@ -49,7 +49,7 @@ const allJobsSlice = createSlice({
     },
     changePage: (state, { payload }) => {
       state.page = payload;
-      console.log("change page")
+      // console.log("change page")
     },
   },
   extraReducers: (builders) => {
@@ -76,7 +76,7 @@ const allJobsSlice = createSlice({
         state.jobs = payload.jobs;
         state.totalJobs = payload.totalJobs;
         state.numOfPages = payload.numOfPages;
-        console.log(state.numOfPages);
+        // console.log(state.numOfPages);
       })
       .addCase(getAllJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -85,6 +85,6 @@ const allJobsSlice = createSlice({
   },
 });
 
-console.log(allJobsSlice);
+// console.log(allJobsSlice);
 export const { handleChange, clearValues, changePage } = allJobsSlice.actions;
 export default allJobsSlice.reducer;

@@ -27,7 +27,7 @@ app.use(xss());
 
 // middleware
 // serves all the static assets that the client-side application needs
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, "./client-mine/dist")));
 // app.use(express.static("./client/build"));
 app.use(express.json());
 
@@ -37,7 +37,8 @@ app.use("/api/v1/jobs", auth, jobsRouter);
 
 // ensures that the index.html file is served for all routes that haven't been matched by any other route handlers. Together, these two lines of code enable a typical client-side application to function properly when deployed on a server
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "/client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./client-mine/dist", "index.html"));
+  // res.sendFile(path.resolve(__dirname, "/client/build", "index.html"));
 });
 app.get("/", (req, res) => {
   res.send("this is the home pages");

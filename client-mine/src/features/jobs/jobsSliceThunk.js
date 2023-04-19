@@ -25,7 +25,7 @@ export const deleteJobThunk = async (jobId, thunkAPI) => {
   try {
     const { data } = await customFetch.delete(`/jobs/${jobId}`);
     thunkAPI.dispatch(clearValues());
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);

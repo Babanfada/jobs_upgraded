@@ -13,10 +13,10 @@ import {
 import { toast } from "react-toastify";
 
 const updatedUser = {
-  name: getUserFromLocalStorage().name || "",
-  email: getUserFromLocalStorage().email || "",
-  lastName: getUserFromLocalStorage().lastName || "",
-  location: getUserFromLocalStorage().location || "",
+  name: getUserFromLocalStorage()?.name || "",
+  email: getUserFromLocalStorage()?.email || "",
+  lastName: getUserFromLocalStorage()?.lastName || "",
+  location: getUserFromLocalStorage()?.location || "",
 };
 
 const initialState = {
@@ -54,11 +54,11 @@ const userSlice = createSlice({
   reducers: {
     toggleSideBar: (state, action) => {
       state.isSideBarOpen = !state.isSideBarOpen;
-      console.log(state.isSideBarOpen);
+      // console.log(state.isSideBarOpen);
     },
     resizeSideBar: (state, action) => {
       state.isResizeSideBarOpen = window.innerWidth <= 981;
-      console.log(state.isResizeSideBarOpen);
+      // console.log(state.isResizeSideBarOpen);
     },
     logOutUser: (state, { payload }) => {
       state.user = null;
@@ -71,7 +71,7 @@ const userSlice = createSlice({
     },
     updateUserProfile: (state, { payload: { name, value } }) => {
       state[name] = value;
-      console.log(state.name, state.email, state.location, state.lastName);
+      // console.log(state.name, state.email, state.location, state.lastName);
     },
   },
   extraReducers: (builder) => {
@@ -98,9 +98,9 @@ const userSlice = createSlice({
         addUserToLocalStorage(user);
         state.user = user;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, {payload}) => {
         state.isLoading = false;
-        // state.error = action.payload;
+        toast.error(payload);
       })
       .addCase(updateUser.pending, (state, action) => {
         state.isLoading = true;
@@ -112,9 +112,9 @@ const userSlice = createSlice({
         state.user = user;
         toast.success("Profile Succefully Updated!!!!");
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(updateUser.rejected, (state, {payload}) => {
         state.isLoading = false;
-        // state.error = action.payload;
+        toast.error(payload);
       });
   },
 });

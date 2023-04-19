@@ -3,9 +3,8 @@ import { getUserFromLocalStorage } from "./localStorage";
 import { clearStore } from "../features/user/userSlice";
 
 const customFetch = axios.create({
-    // baseURL: "https://jobs-api-users-info-api.vercel.app/api/v1/",
-    baseURL: "https://jobify-prod.herokuapp.com/api/v1/toolkit",
-//   baseURL: "https://localhost:5001/api/v1",
+  baseURL: "https://jobify-prod.herokuapp.com/api/v1/toolkit",
+  // baseURL: "/api/v1",
 });
 
 customFetch.interceptors.request.use((config) => {

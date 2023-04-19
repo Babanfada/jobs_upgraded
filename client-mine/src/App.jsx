@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Landing, Register, ProtectedRoute, Shared, Error } from "./pages";
+import { Landing, Registeration, ProtectedRoute, Shared, Error } from "./pages";
 import { EveryJobs, Addjobs, Profile, Statistics } from "./pages/dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/landing" element={<Landing />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Registeration />} />
         <Route path="*" element={<Error />} />
         <Route
           path="/"
