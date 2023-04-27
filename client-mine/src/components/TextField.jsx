@@ -93,12 +93,14 @@ export const NameInput2 = ({
   handleChange,
   background = "transparent",
   label,
+  helper,
   variant
 }) => {
   return (
     <TextField
       label={label ?? name.charAt(0).toUpperCase() + name.slice(1)}
       id="outlined-start-adornment"
+      helperText={helper}
       // sx={{ m: 1.5, width: "100%", background: "#eff6ff" }}
       sx={{
         m: 1.5,

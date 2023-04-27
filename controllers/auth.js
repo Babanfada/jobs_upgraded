@@ -1,4 +1,6 @@
 const USERAUTH = require("../models/auth");
+const cloudinary = require("cloudinary").v2;
+const fs = require('fs');
 const {
   BadRequestError,
   UnauthenticatedError,
@@ -14,6 +16,7 @@ const register = async (req, res) => {
       lastName: user.lastName,
       location: user.location,
       name: user.name,
+      image: user.image,
       token,
     },
   });
@@ -43,13 +46,31 @@ const login = async (req, res) => {
       lastName: user.lastName,
       location: user.location,
       name: user.name,
+      image: user.image,
       token,
     },
   });
 };
+const uploadProductImage = async (req, res) => {
+  console.log(req.files.image);
+  const result = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,
+    {
+      use_filename: true,
+      folder: "file_upload",
+    }
+  );
+  console.log(result);
+  res.status(StatusCodes.OK).json({
+    image: {
+      src: result.secure_url,
+    },
+  });
+  fs.unlinkSync(req.files.image.tempFilePath);
+};
 
 const updateUser = async (req, res) => {
-  const { email, lastName, location, name } = req.body;
+  const { email, lastName, location, name, image } = req.body;
   if (!email || !lastName || !location || !name) {
     throw new BadRequestError("You need to provide all fields");
   }
@@ -58,6 +79,7 @@ const updateUser = async (req, res) => {
   user.lastName = lastName;
   user.location = location;
   user.name = name;
+  user.image = image;
   await user.save();
   // Nb if you are using the above method to update user profile, you need to tell the schema in the user model not to hash the password the second time using this code if (!this.isModified('password')) return;, this is because you are presaving the the hashed password
 
@@ -84,4 +106,5 @@ module.exports = {
   register,
   login,
   updateUser,
+  uploadProductImage,
 };
