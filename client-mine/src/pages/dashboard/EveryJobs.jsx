@@ -31,7 +31,7 @@ const EveryJobs = () => {
 
   React.useEffect(() => {
     dispatch(getAllJobs());
-  }, [search, searchStatus, searchType, sort, page, jobs]); // jobs is a dependency
+  }, [search, searchStatus, searchType, sort, page,jobs]); // jobs is a dependency
 
   const searchItems = (e) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const EveryJobs = () => {
     },
   ];
 
-  console.log(jobs);
+  // console.log(jobs);
   return (
     <div className={styles1.wrapper}>
       <form className={styles.wrapper}>
@@ -117,7 +117,8 @@ const EveryJobs = () => {
       <h5>{`${totalJobs} job${totalJobs > 1 ? "s" : ""} Found`}</h5>
       <section>
         {jobs.map((job, index) => {
-          return <JobCard key={index} {...job} />;
+          const {_id} = job
+          return <JobCard key={_id} {...job} />;
         })}
       </section>
       {numOfPages > 1 && <PaginationControlled />}

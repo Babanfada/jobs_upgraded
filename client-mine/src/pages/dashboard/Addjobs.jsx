@@ -71,6 +71,8 @@ const Addjobs = () => {
   const resetValues = () => {
     dispatch(clearValues());
   };
+
+  
   const AddJobField = [
     {
       name: "position",
@@ -80,6 +82,7 @@ const Addjobs = () => {
           type={"text"}
           value={position}
           handleChange={getInputs}
+         
         />
       ),
     },
