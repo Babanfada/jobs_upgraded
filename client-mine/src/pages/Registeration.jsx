@@ -9,7 +9,7 @@ import { handleToggle, handleChange } from "../features/profile/profileSlice";
 import { registerUser, loginUser } from "../features/user/userSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import PasswordInput, { NameInput } from "../components/TextField";
+import PasswordInput, { NameInput, NameInput2 } from "../components/TextField";
 const Registeration = () => {
   const { isMember, name, email, password } = useSelector(
     (store) => store.profile
@@ -83,6 +83,11 @@ const Registeration = () => {
             const { TextField } = input;
             return <span key={index}>{TextField}</span>;
           })}
+          {isMember ? (
+            ""
+          ) : (
+            <NameInput2 name={"file"} type={"file"} label={""} variant={"standard"}/>
+          )}
           <Stack sx={{ width: "100%" }} spacing={2} direction={"column"}>
             <CustomButton type="submit" prop={prop1} disabled={isLoading}>
               {isMember ? "Login" : "Register"}
