@@ -3,11 +3,15 @@ import { prop4 } from "../../components/data";
 import { CustomButton } from "../../components/Button";
 import styles from "../../styles/addjobs.module.scss";
 import { NameInput2 } from "../../components/TextField";
-import { updateUser, updateUserProfile } from "../../features/user/userSlice";
+import {
+  updateProfile,
+  updateUser,
+  updateUserProfile,
+} from "../../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 const Profile = () => {
-  const { name, email, lastName, location } = useSelector(
+  const { name, email, lastName, location, image } = useSelector(
     (store) => store.user
   );
   const dispatch = useDispatch();
@@ -16,14 +20,19 @@ const Profile = () => {
     const value = e.target.value;
     dispatch(updateUserProfile({ name, value }));
   };
-
+  const uploadAvatar = (e) => {
+    const imageValue = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", imageValue);
+    dispatch(updateProfile(formData));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !lastName || !location) {
       toast.error("You have to provide all fields");
       return;
     }
-    dispatch(updateUser({ name, email, lastName, location }));
+    dispatch(updateUser({ name, email, lastName, location, image }));
   };
   const profile = [
     {
@@ -67,6 +76,20 @@ const Profile = () => {
           type={"text"}
           value={location}
           handleChange={getInputs}
+        />
+      ),
+    },
+    {
+      name: "image",
+      textField: (
+        <NameInput2
+          name={"image"}
+          type={"file"}
+          label={""}
+          // value={image}
+          variant={"standard"}
+          handleChange={uploadAvatar}
+          helper={"Update Avatar"}
         />
       ),
     },

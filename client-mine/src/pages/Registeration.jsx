@@ -5,13 +5,19 @@ import logo from "../assets/images/logo.svg";
 import { prop1, prop2 } from "../components/data";
 import { ColorButton, CustomButton } from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { handleToggle, handleChange } from "../features/profile/profileSlice";
+// export const uploadFile = createAsyncThunk("profile/uploadfile", uploadFileThunk);
+import {
+  handleToggle,
+  handleChange,
+  uploadFile,
+} from "../features/profile/profileSlice";
 import { registerUser, loginUser } from "../features/user/userSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import PasswordInput, { NameInput } from "../components/TextField";
+import PasswordInput, { NameInput, NameInput2 } from "../components/TextField";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const Registeration = () => {
-  const { isMember, name, email, password } = useSelector(
+  const { isMember, name, email, password, image } = useSelector(
     (store) => store.profile
   );
   const { user, isLoading } = useSelector((store) => store.user);
@@ -46,6 +52,12 @@ const Registeration = () => {
     e.preventDefault();
     dispatch(handleToggle());
   };
+  const uploadAvatar = (e) => {
+    const imageValue = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", imageValue);
+    dispatch(uploadFile(formData));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password || (!isMember && !name)) {
@@ -56,7 +68,7 @@ const Registeration = () => {
       console.log("login user");
       dispatch(loginUser({ email, password }));
     } else {
-      dispatch(registerUser({ name, email, password }));
+      dispatch(registerUser({ name, email, password, image }));
     }
     console.log("submit");
   };
@@ -83,6 +95,37 @@ const Registeration = () => {
             const { TextField } = input;
             return <span key={index}>{TextField}</span>;
           })}
+          {/* <div> */}
+          {isMember ? (
+            ""
+          ) : (
+            <NameInput2
+              name={"avatar"}
+              type={"file"}
+              label={""}
+              // value={avatar}
+              variant={"standard"}
+              handleChange={uploadAvatar}
+              helper={"You may upload an avatar"}
+            />
+          )}
+          <div
+            style={{
+              display: "flex",
+              justifySelf: "flex-start",
+              marginBottom: "2vh",
+            }}
+          >
+            {image && (
+              <img style={{ width: 24, height: 24 }} src={image} alt="avatar" />
+            )}
+            {/* {image ? (
+              <img style={{ width: 24, height: 24 }} src={image} alt="avatar" />
+            ) : (
+              <AccountCircleIcon />
+            )} */}
+          </div>
+          {/* </div> */}
           <Stack sx={{ width: "100%" }} spacing={2} direction={"column"}>
             <CustomButton type="submit" prop={prop1} disabled={isLoading}>
               {isMember ? "Login" : "Register"}

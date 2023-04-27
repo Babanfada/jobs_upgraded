@@ -31,6 +31,23 @@ const updateUserThunk = async (url, user, thunkAPI) => {
   }
 };
 
+// import customFetch from "../../utils/axios";
+
+export const updateProfileThunk = async (avatar, thunkAPI) => {
+  try {
+    const {
+      data: {
+        image: { src },
+      },
+    } = await customFetch.post("/auth/upload", avatar);
+    // console.log(src);
+    return src;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.msg);
+  }
+};
+
+
 const clearStoreThunk = async (message, thunkAPI) => {
   try {
     thunkAPI.dispatch(logOutUser(message));

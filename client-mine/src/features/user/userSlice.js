@@ -4,6 +4,7 @@ import {
   loginUserThunk,
   clearStoreThunk,
   updateUserThunk,
+  updateProfileThunk,
 } from "../user/userThunk";
 import {
   addUserToLocalStorage,
@@ -17,6 +18,7 @@ const updatedUser = {
   email: getUserFromLocalStorage()?.email || "",
   lastName: getUserFromLocalStorage()?.lastName || "",
   location: getUserFromLocalStorage()?.location || "",
+  image: getUserFromLocalStorage()?.image || "",
 };
 
 const initialState = {
@@ -44,6 +46,11 @@ export const updateUser = createAsyncThunk(
   async (user, thunkAPI) => {
     return updateUserThunk("/auth/updateUser", user, thunkAPI);
   }
+);
+
+export const updateProfile = createAsyncThunk(
+  "profile/updatefile",
+  updateProfileThunk
 );
 
 export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
@@ -98,7 +105,7 @@ const userSlice = createSlice({
         addUserToLocalStorage(user);
         state.user = user;
       })
-      .addCase(loginUser.rejected, (state, {payload}) => {
+      .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       })
@@ -112,7 +119,20 @@ const userSlice = createSlice({
         state.user = user;
         toast.success("Profile Succefully Updated!!!!");
       })
-      .addCase(updateUser.rejected, (state, {payload}) => {
+      .addCase(updateUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(updateProfile.pending, (state, { payload }) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.image = payload;
+        // addUserToLocalStorage(user);
+        toast.success("Image update was a success !!!!");
+      })
+      .addCase(updateProfile.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       });

@@ -73,7 +73,10 @@ export const NameInput = ({ name, value }) => {
     <TextField
       label={name.charAt(0).toUpperCase() + name.slice(1)}
       // id="outlined-start-adornment"
-      sx={{ width: "100%", background: "#eff6ff" }}
+      sx={{
+        width: "100%",
+        background: "#eff6ff",
+      }}
       size={"small"}
       fullWidth
       name={name}
@@ -83,12 +86,29 @@ export const NameInput = ({ name, value }) => {
     />
   );
 };
-export const NameInput2 = ({ name, type, value, handleChange }) => {
+export const NameInput2 = ({
+  name,
+  type,
+  value,
+  handleChange,
+  background = "transparent",
+  label,
+  helper,
+  variant
+}) => {
   return (
     <TextField
-      label={name.charAt(0).toUpperCase() + name.slice(1)}
+      label={label ?? name.charAt(0).toUpperCase() + name.slice(1)}
       id="outlined-start-adornment"
-      sx={{ m: 1.5, width: "100%", background: "#eff6ff" }}
+      helperText={helper}
+      // sx={{ m: 1.5, width: "100%", background: "#eff6ff" }}
+      sx={{
+        m: 1.5,
+        width: "100%",
+        background: background || "#eff6ff",
+        // border: background || "",
+      }}
+      variant={variant}
       size={"small"}
       fullWidth
       name={name}

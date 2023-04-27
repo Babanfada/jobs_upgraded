@@ -35,6 +35,11 @@ const usersAuthSchema = new mongoose.Schema({
     maxlength: 20,
     default: "my city",
   },
+  image: {
+    type: String,
+    required: [true, "please upload an avatar"],
+    default:"there should be an avatar here"
+  },
 });
 
 usersAuthSchema.pre("save", async function () {

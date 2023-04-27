@@ -13,10 +13,28 @@ const authRouter = require("./routes/auth");
 const jobsRouter = require("./routes/jobs");
 const path = require("path");
 const auth = require("./middlewares/authenticate");
-
+const fileUpload = require("express-fileupload");
+const cloudinary = require("cloudinary").v2;
+const rateLimiter = require("express-rate-limit");
 //  security
 app.set("trust proxy", 1);
-app.use(helmet());
+const apiLimiter = rateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: {
+    msg: "Too many requests from this IP, please try again after 15 minutes",
+  },
+});
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https://res.cloudinary.com/"],
+      upgradeInsecureRequests: [],
+    },
+    reportOnly: false,
+  })
+);
 app.use(
   cors({
     origin: ["http://127.0.0.1:5173", "https://localhost:5001"],
@@ -31,8 +49,15 @@ app.use(express.static(path.resolve(__dirname, "./client-mine/dist")));
 // app.use(express.static("./client/build"));
 app.use(express.json());
 
+//fileupload
+app.use(fileUpload({ useTempFiles: true }));
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 // Routes
-app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/auth", apiLimiter, authRouter);
 app.use("/api/v1/jobs", auth, jobsRouter);
 
 // ensures that the index.html file is served for all routes that haven't been matched by any other route handlers. Together, these two lines of code enable a typical client-side application to function properly when deployed on a server

@@ -10,6 +10,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useSelector } from "react-redux";
 import { clearStore } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Avatar } from "@mui/material";
 export default function PopperPopupState() {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -24,7 +25,14 @@ export default function PopperPopupState() {
             variant="contained"
             {...bindToggle(popupState)}
             endIcon={<ArrowDropDownIcon />}
-            startIcon={<AccountCircleIcon />}
+            // startIcon={<AccountCircleIcon />}
+            startIcon={
+              <Avatar
+                sx={{ width: 24, height: 24 }}
+                alt="avatar"
+                src={user?.image || <AccountCircleIcon />}
+              />
+            }
             // style={{ fontFamily: "'Fasthand', cursive" }}
           >
             {user?.name}
