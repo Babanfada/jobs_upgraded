@@ -14,6 +14,7 @@ import { Avatar } from "@mui/material";
 export default function PopperPopupState() {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  console.log(user?.image);
   const handleLogOut = () => {
     dispatch(clearStore("Logging Out....."));
   };
@@ -30,8 +31,10 @@ export default function PopperPopupState() {
               <Avatar
                 sx={{ width: 24, height: 24 }}
                 alt="avatar"
+                // src={user?.image}
                 src={user?.image || <AccountCircleIcon />}
               />
+              
             }
             // style={{ fontFamily: "'Fasthand', cursive" }}
           >
