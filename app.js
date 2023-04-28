@@ -36,10 +36,13 @@ app.use(
   })
 );
 app.use(
-  cors({
-    origin: ["http://127.0.0.1:5173", "https://localhost:5001"],
-  })
+  cors()
 );
+// app.use(
+//   cors({
+//     origin: ["http://127.0.0.1:5173", "https://localhost:5001"],
+//   })
+// );
 app.use(xss());
 // rate Limiter
 
